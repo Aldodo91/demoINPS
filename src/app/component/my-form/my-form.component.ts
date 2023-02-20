@@ -21,12 +21,15 @@ export class MyFormComponent {
     lavoro: ['', Validators.required],
     anno: [0, Validators.required],
   });
-
+  console = console;
   submit() {
     console.clear();
     console.log(this.questionerForm);
+
     console.log(
-      `Ciao ${this.questionerForm.value.nome} hai ${this.questionerForm.value.anno} anni e fai il ${this.questionerForm.value.lavoro}`
+      this.questionerForm.status == 'INVALID'
+        ? 'Dove vai la form non è completa'
+        : `Ciao ${this.questionerForm.value.nome} hai ${this.questionerForm.value.anno} anni e fai il ${this.questionerForm.value.lavoro}`
     );
   }
 }

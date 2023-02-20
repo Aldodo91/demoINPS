@@ -4,10 +4,10 @@
       <mat-form-field appearance="fill">
         <mat-label>Nome</mat-label>
         <input formControlName="nome" matInput id="nome" />
+        <mat-error *ngIf="questionerForm.get('nome')?.hasError('required')">
+          Ma come ti chiami?
+        </mat-error>
       </mat-form-field>
-      <mat-error *ngIf="questionerForm.get('nome')?.hasError('required')">
-        You must make a selection
-      </mat-error>
     </div>
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
@@ -17,15 +17,28 @@
             {{ anno }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="questionerForm.get('anno')?.hasError('required')">
+          Ma quando sei nato?
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Lavoro</mat-label>
         <input formControlName="lavoro" matInput id="lavoro" />
+        <mat-error *ngIf="questionerForm.get('lavoro')?.hasError('required')">
+          Ma che lavoro fai?
+        </mat-error>
       </mat-form-field>
     </div>
   </div>
 
-  <button type="submit">INVIA</button>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="console.log(questionerForm); questionerForm.valid ?? submit()"
+  >
+    INVIA
+  </button>
 </form>

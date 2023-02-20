@@ -38,15 +38,7 @@ export class RicercaDocumentiComponent implements OnInit {
       },
     },
   };
-  testoOggetto = '';
 
-  sampleform = new FormGroup({
-    tipo: new FormControl('', []),
-    anno: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-    progressivo: new FormControl('', [Validators.pattern('^[0-9]*$')]),
-  });
-
-  risposta = {};
   listaAnni?: string[];
   constructor(
     private ricercaDoc: RicercaDocumentiService,
