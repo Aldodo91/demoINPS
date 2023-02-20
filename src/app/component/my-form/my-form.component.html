@@ -1,0 +1,31 @@
+<form [formGroup]="questionerForm" (ngSubmit)="submit()">
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input formControlName="nome" matInput id="nome" />
+      </mat-form-field>
+      <mat-error *ngIf="questionerForm.get('nome')?.hasError('required')">
+        You must make a selection
+      </mat-error>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Anno</mat-label>
+        <mat-select formControlName="anno">
+          <mat-option *ngFor="let anno of listaAnni" [value]="anno">
+            {{ anno }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Lavoro</mat-label>
+        <input formControlName="lavoro" matInput id="lavoro" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <button type="submit">INVIA</button>
+</form>

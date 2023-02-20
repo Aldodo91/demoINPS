@@ -1,32 +1,45 @@
 <h1>
-    In questa pagina puoi chiamare l'API per <strong>Ricerca Documenti</strong>
+  In questa pagina puoi chiamare l'API per <strong>Ricerca Documenti</strong>
 </h1>
 
-
-
-
-<form #protocolloForm="ngForm">
-    <mat-form-field appearance="fill">
-        <mat-label  >Tipo</mat-label>
-        <input matInput id="tipo" name="tipo" [(ngModel)]="model.tipo">
+<form>
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Tipo</mat-label>
+        <input matInput id="tipo" name="tipo" [(ngModel)]="model.tipo" />
       </mat-form-field>
+    </div>
+    <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Anno</mat-label>
-        <input matInput id="anno" name="anno" [(ngModel)]="model.anno">
+        <mat-select>
+          <mat-option *ngFor="let anno of listaAnni" [value]="anno">
+            {{ anno }}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
+    </div>
+    <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Progressivo</mat-label>
-        <input matInput id="progressivo" name="progressivo" [(ngModel)]="model.progressivo">
+        <input matInput id="progressivo" name="progressivo" />
       </mat-form-field>
-</form>
-<button mat-raised-button color="primary" (click)="callApi(rowData)">Chiama API</button>
-
-<div *ngIf="lista"> 
-    la sista si vede
-    <div *ngFor="let c of lista">
-        {{c.testoOggetto}} 
-        {{c.protocolloInput.tipo}}
-        {{c.protocolloInput.anno}}
-        {{c.protocolloInput.progressivo}}
     </div>
+  </div>
+</form>
+<button mat-raised-button color="primary" (click)="callApi(rowData)">
+  Chiama API
+</button>
+
+<div *ngIf="lista">
+  la sista si vede
+  <ul>
+    <li class="" *ngFor="let c of lista">
+      {{ c.testoOggetto }}
+      {{ c.protocolloInput.tipo }}
+      {{ c.protocolloInput.anno }}
+      {{ c.protocolloInput.progressivo }}
+    </li>
+  </ul>
 </div>

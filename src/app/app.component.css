@@ -1,21 +1,27 @@
-.all{
-    background-color: aqua;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
+.all {
+  background-color: aqua;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
 }
-.menu{
-    background-color: white;
-    height: 100%;
-    width: 30vw;
+.menu {
+  background-color: bisque;
+  height: 100%;
+  width: 30vw;
+  padding-top: 50px;
 }
-.app{
-    width: 100%;
-    padding: 30px 40px;
-    background-color: beige;
+.app {
+  width: 100%;
+  padding: 30px 40px;
+  background-color: beige;
 }
 
-.navigate{
-    padding: 10px 40px;
-    border: 1px solid red;
+.navigate {
+  background-color: white;
+  padding: 30px 40px;
+  margin: 10px 20px;
+  border: 1px solid red;
+  border-radius: 30px;
+  box-shadow: 3px 10px 24px 1px rgba(0, 0, 0, 0.74);
+  margin-bottom: 40px;
 }
