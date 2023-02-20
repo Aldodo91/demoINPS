@@ -9,3 +9,13 @@
     height: 100%;
     width: 30vw;
 }
+.app{
+    width: 100%;
+    padding: 30px 40px;
+    background-color: beige;
+}
+
+.navigate{
+    padding: 10px 40px;
+    border: 1px solid red;
+}
