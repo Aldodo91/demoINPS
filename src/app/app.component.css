@@ -1,12 +1,8 @@
 .all {
-  background-color: aqua;
-  height: 100vh;
-  width: 100vw;
   display: flex;
 }
 .menu {
   background-color: bisque;
-  height: 100%;
   width: 30vw;
   padding-top: 50px;
 }

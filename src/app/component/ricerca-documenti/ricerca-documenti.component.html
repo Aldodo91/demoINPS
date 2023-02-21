@@ -2,37 +2,57 @@
   In questa pagina puoi chiamare l'API per <strong>Ricerca Documenti</strong>
 </h1>
 
-<form>
+<form [formGroup]="interaForm" (ngSubmit)="callApi()">
   <div class="row">
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Tipo</mat-label>
-        <input matInput id="tipo" name="tipo" [(ngModel)]="model.tipo" />
+        <input matInput id="tipo" formControlName="tipo" />
       </mat-form-field>
     </div>
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Anno</mat-label>
-        <mat-select>
+        <mat-select formControlName="anno">
           <mat-option *ngFor="let anno of listaAnni" [value]="anno">
             {{ anno }}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="interaForm.get('anno')?.hasError('required')">
+          Metti un anno grazie
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Progressivo</mat-label>
-        <input matInput id="progressivo" name="progressivo" />
+        <input
+          matInput
+          id="progressivo"
+          name="progressivo"
+          formControlName="progressivo"
+        />
       </mat-form-field>
     </div>
   </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Data Protocollazione (dal)</mat-label>
+        <input
+          type="date"
+          matInput
+          id="dataDal"
+          name="data"
+          formControlName="data"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" type="submit">Chiama API</button>
 </form>
-<button mat-raised-button color="primary" (click)="callApi(rowData)">
-  Chiama API
-</button>
 
-<div *ngIf="lista">
+<div *ngIf="lista && lista.length">
   la sista si vede
   <ul>
     <li class="" *ngFor="let c of lista">

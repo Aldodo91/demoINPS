@@ -18,28 +18,23 @@ import { RicercaDocumentiService } from 'src/app/services/ricerca-documenti.serv
   providers: [RicercaDocumentiService],
 })
 export class RicercaDocumentiComponent implements OnInit {
-  model = new Protocollo('', '', '');
-  lista?: Content[];
-  rowData: Data = {
-    pageable: {
-      eseguiCount: true,
-      page: 0,
-      size: 30,
-    },
-    pkPoRicDocPoRicDocInput: {
-      codAbiUO: '1',
-      codUtente: 1,
-      flgTestOgg: 'OR',
-      uoColProfiliStoricizzati: 'GCFF',
-      protocollo: {
-        tipo: this.model.tipo,
-        anno: this.model.anno,
-        progressivo: this.model.progressivo,
-      },
-    },
+  dataDTO = {
+    tipo: '',
+    anno: '',
+    progressivo: '',
+    data: new Date(),
   };
+  interaForm = new FormGroup({
+    tipo: new FormControl(this.dataDTO.tipo, [Validators.required]),
+    anno: new FormControl(this.dataDTO.anno, [Validators.required]),
+    progressivo: new FormControl(this.dataDTO.progressivo, [
+      Validators.required,
+    ]),
+    data: new FormControl(this.dataDTO.data),
+  });
+  lista?: Content[];
 
-  listaAnni?: string[];
+  listaAnni = [''];
   constructor(
     private ricercaDoc: RicercaDocumentiService,
     private listaAnniService: ListaAnniService
@@ -56,13 +51,18 @@ export class RicercaDocumentiComponent implements OnInit {
       })
       .subscribe((r) => (this.listaAnni = r));
   }
-  callApi(data: Data) {
-    data.pkPoRicDocPoRicDocInput.protocollo.anno = this.model.anno;
-    data.pkPoRicDocPoRicDocInput.protocollo.progressivo =
-      this.model.progressivo;
-    data.pkPoRicDocPoRicDocInput.protocollo.tipo = this.model.tipo;
-    this.ricercaDoc.ricercaDoc(data).subscribe(({ payload }) => {
-      this.lista = payload.listaDocumentiRecord.content;
-    });
+  callApi() {
+    this.ricercaDoc
+      .ricercaDoc(
+        {
+          tipo: this.interaForm.value.tipo!,
+          anno: this.interaForm.value.anno!,
+          progressivo: this.interaForm.value.progressivo!,
+        },
+        this.interaForm.value.data
+      )
+      .subscribe(({ payload }) => {
+        this.lista = payload.listaDocumentiRecord.content;
+      });
   }
 }

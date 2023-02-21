@@ -27,7 +27,7 @@ export class MyFormComponent implements OnInit {
   risultato = '';
 
   questionerForm = new FormGroup({
-    nome: new FormControl(this.dataDTO.nome, []),
+    nome: new FormControl(this.dataDTO.nome, [Validators.required]),
     anno: new FormControl(this.dataDTO.anno, []),
     lavoro: new FormControl(this.dataDTO.lavoro, []),
     codFis: new FormControl(this.dataDTO.codFis, [regexValidator(/^[a-zA-Z]/)]),
