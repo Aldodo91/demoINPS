@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { converter } from 'src/app/common/dateConverter';
+import { dateConverter } from 'src/app/common/dateConverter';
 import { ListaAnniService } from 'src/app/services/lista-anni.service';
 import { Content } from 'src/app/services/response';
 import { RicercaDocumentiService } from 'src/app/services/ricerca-documenti.service';
@@ -52,8 +52,11 @@ export class RicercaDocumentiComponent implements OnInit {
           anno: this.interaForm.value.anno!,
           progressivo: this.interaForm.value.progressivo!,
         },
-        dataProtocolloDA: converter(this.interaForm.value.data),
-        dataProtocolloA: converter(this.interaForm.value.dataAl, 'yyyy-MM-dd'),
+        dataProtocolloDA: dateConverter(this.interaForm.value.data),
+        dataProtocolloA: dateConverter(
+          this.interaForm.value.dataAl,
+          'yyyy-MM-dd'
+        ),
       })
       .subscribe(({ payload }) => {
         this.lista = payload.listaDocumentiRecord.content;

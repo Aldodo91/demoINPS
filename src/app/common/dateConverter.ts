@@ -1,12 +1,11 @@
 import { DatePipe } from '@angular/common';
 
-export function converter(
+export function dateConverter(
   date: Date | undefined | null,
   format: string = 'yyyy-MM-dd',
   locale = 'it-IT'
-) {
-  let a = new DatePipe(locale);
-  let convertedValue = date ? a.transform(date, format) : undefined;
+): string | undefined {
+  const datePipe = new DatePipe(locale);
 
-  return convertedValue ?? undefined;
+  return (date ? datePipe.transform(date, format) : null) ?? undefined;
 }
