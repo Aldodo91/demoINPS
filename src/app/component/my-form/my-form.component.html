@@ -44,17 +44,20 @@
               questionerForm.get("codFis")?.errors?.['minlength'].requiredLength
           }}
         </mat-error>
+        <mat-error *ngIf="questionerForm.get('codFis')?.hasError('errore')">
+          mio errore custom
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col-lg-4 col-md-4">
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
         <input formControlName="email" matInput id="email" />
-        <mat-error *ngIf="questionerForm.get('email')?.hasError('email')">
+        <mat-error *ngIf="questionerForm.get('email')?.hasError('errore')">
           hai sbagliato email
         </mat-error>
-        <mat-error *ngIf="questionerForm.get('email')?.hasError('email')">
-          {{ questionerForm.get("email")?.errors?.['email'].descrizione }}
+        <mat-error *ngIf="questionerForm.get('email')?.hasError('errore')">
+          {{ questionerForm.get("email")?.errors?.['errore'].descrizione }}
         </mat-error>
       </mat-form-field>
     </div>

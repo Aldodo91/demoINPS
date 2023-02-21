@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { mioValidatore } from 'src/app/common/customValidators';
+import { regexValidator } from 'src/app/common/customValidators';
 
 @Component({
   selector: 'app-my-form',
@@ -30,10 +30,10 @@ export class MyFormComponent implements OnInit {
     nome: new FormControl(this.dataDTO.nome, []),
     anno: new FormControl(this.dataDTO.anno, []),
     lavoro: new FormControl(this.dataDTO.lavoro, []),
-    codFis: new FormControl(this.dataDTO.codFis, [mioValidatore(/^[a-zA-Z]/)]),
+    codFis: new FormControl(this.dataDTO.codFis, [regexValidator(/^[a-zA-Z]/)]),
     email: new FormControl(this.dataDTO.email, [
-      //mioValidatore(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
-      Validators.email,
+      regexValidator(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
+      //Validators.email,
     ]),
   });
   submit() {
