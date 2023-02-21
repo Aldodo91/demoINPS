@@ -1,35 +1,54 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { mioValidatore } from 'src/app/common/customValidators';
 
 @Component({
   selector: 'app-my-form',
   templateUrl: './my-form.component.html',
   styleUrls: ['./my-form.component.css'],
 })
-export class MyFormComponent {
-  listaAnni = ['1991', '2000', '1980'];
+export class MyFormComponent implements OnInit {
+  ngOnInit(): void {
+    setInterval(() => {
+      console.clear();
+      console.log(this.questionerForm);
+    }, 10000);
+  }
+  listaAnni = ['', '1991', '2000', '1980'];
 
-  data = {
-    nome: new FormControl(''),
-    lavoro: new FormControl(''),
-    anno: new FormControl(0),
+  dataDTO = {
+    nome: '',
+    lavoro: '',
+    anno: '',
+    codFis: '',
+    email: '',
   };
-  constructor(private formBuilder: FormBuilder) {}
 
-  questionerForm = this.formBuilder.group({
-    nome: ['', Validators.required],
-    lavoro: ['', Validators.required],
-    anno: [0, Validators.required],
+  risultato = '';
+
+  questionerForm = new FormGroup({
+    nome: new FormControl(this.dataDTO.nome, []),
+    anno: new FormControl(this.dataDTO.anno, []),
+    lavoro: new FormControl(this.dataDTO.lavoro, []),
+    codFis: new FormControl(this.dataDTO.codFis, [mioValidatore(/^[a-zA-Z]/)]),
+    email: new FormControl(this.dataDTO.email, [
+      //mioValidatore(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g),
+      Validators.email,
+    ]),
   });
-  console = console;
   submit() {
     console.clear();
     console.log(this.questionerForm);
+    let condition = this.questionerForm.status == 'INVALID';
+    !condition &&
+      this.questionerForm
+        .get('codFis')
+        ?.setValue(
+          this.questionerForm.get('codFis')?.value?.toUpperCase() || null
+        );
 
-    console.log(
-      this.questionerForm.status == 'INVALID'
-        ? 'Dove vai la form non è completa'
-        : `Ciao ${this.questionerForm.value.nome} hai ${this.questionerForm.value.anno} anni e fai il ${this.questionerForm.value.lavoro}`
-    );
+    this.risultato = condition
+      ? 'Dove vai la form non è completa'
+      : `Ciao ${this.questionerForm.value.nome} hai ${this.questionerForm.value.anno} anni e fai il ${this.questionerForm.value.lavoro} la tua mail e ${this.questionerForm.value.email}`;
   }
 }

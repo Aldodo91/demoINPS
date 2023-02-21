@@ -31,14 +31,44 @@
         </mat-error>
       </mat-form-field>
     </div>
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Cod Fiscale</mat-label>
+        <input formControlName="codFis" matInput id="codFis" />
+        <mat-error *ngIf="questionerForm.get('codFis')?.hasError('required')">
+          Ma il tuo codice Fiscale?
+        </mat-error>
+        <mat-error *ngIf="questionerForm.get('codFis')?.hasError('minlength')">
+          vedi che hai sbagliato dovrebbe essere lungo
+          {{
+              questionerForm.get("codFis")?.errors?.['minlength'].requiredLength
+          }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col-lg-4 col-md-4">
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput id="email" />
+        <mat-error *ngIf="questionerForm.get('email')?.hasError('email')">
+          hai sbagliato email
+        </mat-error>
+        <mat-error *ngIf="questionerForm.get('email')?.hasError('email')">
+          {{ questionerForm.get("email")?.errors?.['email'].descrizione }}
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
 
   <button
     mat-raised-button
     color="primary"
     type="submit"
-    (click)="console.log(questionerForm); questionerForm.valid ?? submit()"
+    style="margin-top: 100px"
+    [disabled]="questionerForm.invalid"
+    (click)="questionerForm.valid && submit()"
   >
     INVIA
   </button>
+  <h3 *ngIf="risultato">{{ risultato }}</h3>
 </form>
