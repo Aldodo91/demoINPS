@@ -15,11 +15,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatSelectModule } from '@angular/material/select';
 import { MyFormComponent } from './component/my-form/my-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [AppComponent, RicercaDocumentiComponent, MyFormComponent],
   imports: [
     BrowserModule,
+    MatNativeDateModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -31,8 +35,13 @@ import { MyFormComponent } from './component/my-form/my-form.component';
     NgbModule,
     MatSelectModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
   ],
-  providers: [RicercaDocumentiService],
+  providers: [
+    RicercaDocumentiService,
+    { provide: MAT_DATE_LOCALE, useValue: 'it-IT' },
+    DatePipe,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { Protocollo } from 'src/app/classes/protocollo';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { converter } from 'src/app/common/dateConverter';
 import { ListaAnniService } from 'src/app/services/lista-anni.service';
-import { Data } from 'src/app/services/payloadRichiesat';
-import { Content, Payload } from 'src/app/services/response';
+import { Content } from 'src/app/services/response';
 import { RicercaDocumentiService } from 'src/app/services/ricerca-documenti.service';
 
 @Component({
@@ -23,6 +17,7 @@ export class RicercaDocumentiComponent implements OnInit {
     anno: '',
     progressivo: '',
     data: new Date(),
+    dataAl: new Date(),
   };
   interaForm = new FormGroup({
     tipo: new FormControl(this.dataDTO.tipo, [Validators.required]),
@@ -31,6 +26,7 @@ export class RicercaDocumentiComponent implements OnInit {
       Validators.required,
     ]),
     data: new FormControl(this.dataDTO.data),
+    dataAl: new FormControl(this.dataDTO.dataAl),
   });
   lista?: Content[];
 
@@ -44,23 +40,21 @@ export class RicercaDocumentiComponent implements OnInit {
   }
   callListaAnni() {
     this.listaAnniService
-      .callListaAnni({
-        codiceApplicazione: 'PRO',
-        tipoRepertorio: '',
-        tipoSelezione: 'GU',
-      })
+      .callListaAnni()
       .subscribe((r) => (this.listaAnni = r));
   }
+
   callApi() {
     this.ricercaDoc
-      .ricercaDoc(
-        {
+      .ricercaDoc({
+        protocollo: {
           tipo: this.interaForm.value.tipo!,
           anno: this.interaForm.value.anno!,
           progressivo: this.interaForm.value.progressivo!,
         },
-        this.interaForm.value.data
-      )
+        dataProtocolloDA: converter(this.interaForm.value.data),
+        dataProtocolloA: converter(this.interaForm.value.dataAl, 'yyyy-MM-dd'),
+      })
       .subscribe(({ payload }) => {
         this.lista = payload.listaDocumentiRecord.content;
       });

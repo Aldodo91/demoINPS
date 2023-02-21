@@ -11,24 +11,23 @@ export class RicercaDocumentiService {
   url =
     'http://app-na-cdr-sv01.dl-app.maticmind.it:9080/restgwp/api/gwprotocollo/richiestaDocumenti/ricercadocumento';
 
-  ricercaDoc(data: Protocollo, dataDal: Date | null | undefined) {
-    console.log('chiamo con ', data, dataDal);
+  ricercaDoc(data: PkPoRicDocPoRicDocInput) {
+    const pageable = {
+      eseguiCount: true,
+      page: 0,
+      size: 30,
+    };
     const rowData: Data = {
-      pageable: {
-        eseguiCount: true,
-        page: 0,
-        size: 30,
-      },
+      pageable,
       pkPoRicDocPoRicDocInput: {
+        ...data,
         codAbiUO: '1',
         codUtente: 1,
         flgTestOgg: 'OR',
         uoColProfiliStoricizzati: 'GCFF',
-        protocollo: { ...data },
-        dataProtocolloDA: dataDal,
       },
     };
 
-    return this.http.post<Response>(this.url, rowData);
+    return this.http.post<Response>(this.url, { ...pageable, ...rowData });
   }
 }
